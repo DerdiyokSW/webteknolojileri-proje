@@ -10,3 +10,39 @@ h1, h2 {
 img {
   max-width: 100%;
 }
+
+/* Özgeçmiş sayfası stilleri */
+section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+article {
+  margin-bottom: 25px;
+}
+
+address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+ul li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #007bff;
+}
