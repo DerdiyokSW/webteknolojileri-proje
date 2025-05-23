@@ -12,21 +12,53 @@
   <header class="bg-dark text-white text-center p-4">
     <h1>Giriş Sayfası</h1>
   </header>
-
   <main class="container mt-4" style="max-width: 500px;">
-    <form action="login.php" method="POST" onsubmit="return validateForm()">
-      <div class="mb-3">        <label for="username" class="form-label">Kullanıcı Adı (Mail)</label>
+    <div id="loginForm">
+      <form action="login.php" method="POST" onsubmit="return validateForm(event)">
+        <div class="mb-3"><label for="username" class="form-label">Kullanıcı Adı (Mail)</label>
         <input type="text" name="username" id="username" class="form-control" placeholder="örn: g23xxxxx@ogr.sakarya.edu.tr">
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Şifre (Sadece numara)</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="b24xxxxx">
-      </div>
-      <button type="submit" class="btn btn-primary">Giriş Yap</button>
+      <div class="mb-3">        <label for="password" class="form-label">Şifre (örn: g23xxxxx)</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="(harf)(00-25)xxxxx">
+      </div>      <button type="submit" class="btn btn-primary">Giriş Yap</button>
     </form>
+    </div>
+    
+    <div id="successMessage" style="display: none;" class="text-center">
+      <div class="alert alert-success mb-4">
+        <h2 id="welcomeMessage"></h2>
+      </div>
+      <h1 class="display-4 text-success">GİRİŞ YAPILDI</h1>
+      <div class="mt-4">
+        <a href="index.html" class="btn btn-primary">Ana Sayfaya Dön</a>
+      </div>
+    </div>
   </main>
 
   <script src="js/login-kontrol.js"></script>
+  <script>
+    // Form gönderildiğinde çalışacak fonksiyon
+    function validateForm(event) {
+      event.preventDefault(); // Formun normal gönderimini engelle
+      
+      // Form verilerini al
+      const email = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      
+      // Giriş kontrolü yap
+      const username = email.split('@')[0];
+      if (username === password) {
+        // Giriş başarılı
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('welcomeMessage').textContent = 'Hoşgeldiniz, ' + password;
+        return false;
+      } else {
+        alert('Kullanıcı adı veya şifre hatalı!');
+        return false;
+      }
+    }
+  </script>
 
 </body>
 </html>
