@@ -1,6 +1,37 @@
+
+/*
+ * Ana Stil Dosyası
+ * Bu dosya tüm sayfalarda kullanılan ortak stilleri içerir
+ * - Genel görünüm ayarları
+ * - Sayfa yapısı
+ * - Bileşen stilleri
+ */
+
+/* Temel stil tanımlamaları */
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
+}
+
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.1);
+}
+
+.home-button img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 h1, h2 {
@@ -11,13 +42,39 @@ img {
   max-width: 100%;
 }
 
-/* Özgeçmiş sayfası stilleri */
+/* 
+ * Özgeçmiş sayfası stilleri 
+ * - Bölüm yapılandırması
+ * - Kartlar ve listeler
+ * - Özel tipografi
+ */
 section {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+section h2 {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+section h3 {
+  margin: 25px 0 15px 0;
+  color: #444;
+}
+
+section p {
+  line-height: 1.8;
   margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.row {
+  margin-bottom: 30px;
 }
 
 article {
@@ -47,7 +104,12 @@ ul li:before {
   color: #007bff;
 }
 
-/* Şehrim sayfası stilleri */
+/* 
+ * Şehrim sayfası stilleri 
+ * - Slider yapılandırması
+ * - Görsel düzeni
+ * - Animasyonlar
+ */
 .carousel-item img {
   width: 100%;
   max-height: 500px;

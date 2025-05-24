@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- İletişim Formu Sonuçları - Form verilerinin görüntülenmesi -->
+<html lang="tr">
+<head>
+  <!-- Karakter seti ve görünüm ayarları -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İletişim Formu Sonuçları</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <a href="index.html" class="home-button">
+    <img src="img/profil.jpg" alt="Ana Sayfa">
+  </a>
+
+  <header class="bg-dark text-white text-center p-4">
+    <h1>Form Sonuçları</h1>
+  </header>
+
+  <main class="container mt-4" style="max-width: 700px;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Gönderilen Bilgiler</h5>
+        <div id="sonuclar"></div>
+        <a href="iletisim.html" class="btn btn-primary mt-3">Yeni Form</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sonuclarDiv = document.getElementById('sonuclar');
+      const fields = {
+        'ad': 'Ad',
+        'soyad': 'Soyad',
+        'email': 'E-posta',
+        'telefon': 'Telefon',
+        'konu': 'Konu',
+        'cinsiyet': 'Cinsiyet',
+        'haber': 'Haber almak istiyor',
+        'mesaj': 'Mesaj'
+      };
+
+      let html = '<table class="table table-bordered">';
+      for (const [param, label] of Object.entries(fields)) {
+        const value = urlParams.get(param);
+        if (value) {
+          html += `
+            <tr>
+              <th style="width: 150px;">${label}:</th>
+              <td>${value}</td>
+            </tr>`;
+        }
+      }
+      html += '</table>';
+      sonuclarDiv.innerHTML = html;
+    });
+  </script>
+
+</body>
+</html>
