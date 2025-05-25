@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>İlgi Alanlarım - Spor Haberleri</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Ana sayfaya dönüş butonu -->
+  <a href="index.html" class="home-button">
+    <img src="img/profil.jpg" alt="Ana Sayfa">
+  </a>
+
+  <header class="bg-dark text-white text-center p-4">
+    <h1>Spor Haberleri</h1>
+    <p class="text-center">MediaStack API ile güncel spor haberleri</p>
+  </header>
+
+  <main class="container mt-4">
+    <div class="mb-4">
+      <h2 class="mb-3">Güncel Spor Haberleri</h2>
+      <div id="haberler" class="row g-4">
+        <!-- Haberler buraya JS ile eklenecek -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-light text-center p-3 mt-5">
+    <p>&copy; 2025 | Web Teknolojileri Projesi</p>
+  </footer>
+  
+  <script>
+    /**
+     * MediaStack API'den spor haberlerini getirip sayfada gösterir
+     * API KEY'i güvenlik için ayrı bir değişkende tutuyoruz
+     */
+    const API_KEY = '3ea1340d5d5b664e8b8cf8707ed236e3';
+      function getNews() {
+      const haberlerDiv = document.getElementById('haberler');
+      haberlerDiv.innerHTML = '<p class="col-12 text-center">Haberler yükleniyor...</p>';
+      
+      // MediaStack API'ye istek at
+      fetch(`http://api.mediastack.com/v1/news?access_key=${API_KEY}&categories=sports&languages=en&keywords=nba&limit=10`)
+
+
+
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP hata! durum: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const haberlerDiv = document.getElementById('haberler');
+          
+          if (!data.data || data.data.length === 0) {
+            haberlerDiv.innerHTML = '<p class="col-12 text-center">Haber bulunamadı.</p>';
+            return;
+          }
+          else {
+            haberlerDiv.innerHTML = '<p class="col-12 text-center">İlgi alanım basketbol olduğu için NBA ile ilgili haberleri derledim.</p>'; //
+          }
+
+          data.data.forEach(haber => {
+            const html = `
+              <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                  ${haber.image ? `
+                    <img src="${haber.image}" 
+                         class="card-img-top" 
+                         alt="${haber.title}"
+                         style="height: 300px; object-fit: cover;">` : ''}
+                  <div class="card-body">
+                    <h5 class="card-title">${haber.title}</h5>
+                    <p class="card-text">${haber.description || ''}</p>
+                    <p class="card-text">
+                      <small class="text-muted">
+                        ${new Date(haber.published_at).toLocaleDateString('tr-TR')}
+                      </small>
+                    </p>
+                    <a href="${haber.url}" 
+                       target="_blank" 
+                       class="btn btn-sm btn-outline-primary">
+                       Habere Git
+                    </a>
+                  </div>
+                </div>
+              </div>`;
+            haberlerDiv.insertAdjacentHTML("beforeend", html);
+          });
+        })
+        .catch(error => {
+          console.error('Haberler yüklenirken hata oluştu:', error);
+          document.getElementById('haberler').innerHTML = 
+            '<p class="col-12 text-center text-danger">Haberler yüklenirken bir hata oluştu.</p>';
+        });
+    }
+
+    // Sayfa yüklendiğinde haberleri getir
+    document.addEventListener("DOMContentLoaded", getNews);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
